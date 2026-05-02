@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
     auto specs = get_cpu_specs();
     std::ofstream spec_out("cpu_specs.csv");
     spec_out << "label,size_kb\n";
-    long L3_size = 0;
+    long L3_size_kb = 0;
     for (auto& s : specs) {
         spec_out << s.label << "," << s.size_kb << "\n";
         if (s.label.find("L3") != std::string::npos) {
@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
     std::thread n_thread;
     if (enable_noise) {
         std::cout << "[!] Starting NOISY NEIGHBOR thread..." << std::endl;
-        n_thread = std::thread(noise_maker, L3_size);
+        n_thread = std::thread(noise_maker, L3_size_kb);
     }
 
     std::ofstream out("latency_data.csv");
